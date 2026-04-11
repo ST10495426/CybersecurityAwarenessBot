@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace CybersecurityAwarenessBot
 {
+    //This class handles all the console display for the cybersecurity display
     public class UserInterface
     {
         public void DisplayWelcome()

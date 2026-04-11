@@ -11,6 +11,8 @@ namespace CybersecurityAwarenessBot
     {
         static void Main(string[] args)
         {
+            
+
             // Set console title
             Console.Title = "Cybersecurity Awareness Bot";
 
