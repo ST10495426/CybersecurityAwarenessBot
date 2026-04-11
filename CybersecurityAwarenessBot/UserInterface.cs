@@ -10,13 +10,13 @@ namespace CybersecurityAwarenessBot
     //This class handles all the console display for the cybersecurity display
     public class UserInterface
     {
-        public void DisplayWelcome()
+        public void DisplayWelcome()// show the welcoming message
         {
             DisplayColoredText("=== WELCOME TO THE CYBERSECURITY AWARENESS BOT ===", ConsoleColor.Cyan);
             Console.WriteLine();
         }
 
-        public void DisplayPersonalisedWelcome(string userName)
+        public void DisplayPersonalisedWelcome(string userName) //Bot's greetings
         {
             DisplayColoredText($"Hello,"+userName+"!", ConsoleColor.Green);
             DisplayWithTypingEffect("I'm here to help you stay safe online. Type 'help' to see what I can do, or 'exit' to leave.\n", 30);

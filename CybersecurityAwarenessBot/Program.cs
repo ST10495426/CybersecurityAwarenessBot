@@ -16,6 +16,7 @@ namespace CybersecurityAwarenessBot
             // Set console title
             Console.Title = "Cybersecurity Awareness Bot";
 
+            //display the art 
             AsciiArt art = new AsciiArt();
             art.DisplayLogo();
 

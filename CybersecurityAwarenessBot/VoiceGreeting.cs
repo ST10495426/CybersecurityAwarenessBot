@@ -14,9 +14,9 @@ namespace CybersecurityAwarenessBot
 
         public VoiceGreeting()
         {
-            // Set path to the greeting.wav file in the application directory
+            // Set path to the audio file in the application directory
             audioFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Welcome Audio WAV.wav");
-            //C: \Users\DRUZA\source\repos\CybersecurityAwarenessBot\CybersecurityAwarenessBot\Welcome Audio WAV.wav
+            
         }
 
         public void Play()

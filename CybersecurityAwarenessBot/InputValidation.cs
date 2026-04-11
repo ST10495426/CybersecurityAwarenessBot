@@ -38,17 +38,17 @@ namespace CybersecurityAwarenessBot
             Console.Write($"{userName}: ");
             string input = Console.ReadLine();
 
-            // Input validation - handle empty entries
+            // Input validation which handle empty entries
             if (string.IsNullOrWhiteSpace(input))
             {
                 userInterface.DisplayDefaultResponse();
-                return GetUserInput(userName); // Recursively ask again
+                return GetUserInput(userName); //  ask repeatedly
             }
 
             return input;
         }
 
-        // Additional validation methods can be added here
+        // Additional validation methods 
         public bool IsValidYesNo(string input)
         {
             return input.Equals("yes", StringComparison.OrdinalIgnoreCase) ||

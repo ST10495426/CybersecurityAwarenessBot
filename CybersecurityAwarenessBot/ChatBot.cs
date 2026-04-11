@@ -34,8 +34,6 @@ namespace CybersecurityAwarenessBot
                 // Play voice greeting
                 voiceGreeting.Play();
 
-               
-         
 
                 // Show welcome message
                 userInterface.DisplayWelcome();

@@ -8,7 +8,7 @@ namespace CybersecurityAwarenessBot
 {
     public class ResponseManager
     {
-        // Automatic properties for bot configuration
+        // Automatic bot information properties for configuration
         public string BotName { get; set; } = "CyberBot";
         public string BotVersion { get; set; } = "1.0";
 
