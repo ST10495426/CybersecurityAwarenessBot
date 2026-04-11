@@ -1,0 +1,57 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace CybersecurityAwarenessBot
+{
+    public class ResponseManager
+    {
+        // Automatic properties for bot configuration
+        public string BotName { get; set; } = "CyberBot";
+        public string BotVersion { get; set; } = "1.0";
+
+        // Dictionary to store questions and their corresponding answers
+        private readonly Dictionary<string, string> responses;
+
+        public ResponseManager()
+        {
+            responses = new Dictionary<string, string>(System.StringComparer.OrdinalIgnoreCase)
+        {
+            { "how are you", "I'm functioning securely, thank you for asking! How can I help you stay safe online?" },
+            { "what is your purpose", $"My purpose is to educate and assist you with cybersecurity best practices. I'm {BotName } version {BotVersion}, your personal security assistant!" },
+            { "what can i ask you about", "You can ask me about:\n- Password safety\n- Phishing attacks\n- Safe browsing habits\n- General cybersecurity tips" },
+            { "password safety", " Password Safety Tips:\n- Use long, complex passwords (12+ characters)\n- Never reuse passwords across sites\n- Enable Two-Factor Authentication (2FA) whenever possible\n- Consider using a password manager" },
+            { "phishing", " Phishing Awareness:\n- Never click suspicious links in emails or texts\n- Check sender email addresses carefully\n- Look for spelling errors and urgent language\n- When in doubt, go directly to the official website" },
+            { "safe browsing", " Safe Browsing Habits:\n- Ensure websites use HTTPS (look for the padlock icon)\n- Avoid using public Wi-Fi for sensitive transactions\n- Keep your browser and extensions updated\n- Clear cookies and cache regularly" },
+            { "help", "I can answer questions about:\n- Password safety\n- Phishing\n- Safe browsing\nJust type your question or topic!" }
+        };
+        }
+
+        public string GetResponse(string userInput, string userName)
+        {
+            if (string.IsNullOrWhiteSpace(userInput))
+            {
+                return null;
+            }
+
+            // Special case for "how are you" to include user's name
+            if (userInput.IndexOf("how are you", System.StringComparison.OrdinalIgnoreCase) >= 0)
+            {
+                return $"I'm functioning securely, thank you for asking! How can I help you stay safe online,?"+ userName;
+            }
+
+            // Check if the input matches any key in the dictionary
+            foreach (var key in responses.Keys)
+            {
+                if (userInput.IndexOf(key, System.StringComparison.OrdinalIgnoreCase) >= 0)
+                {
+                    return responses[key];
+                }
+            }
+
+            return null;
+        }
+    }
+}
