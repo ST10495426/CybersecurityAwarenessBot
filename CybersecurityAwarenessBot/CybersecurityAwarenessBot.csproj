@@ -43,23 +43,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AsciiArt.cs" />
-    <Compile Include="ChatBot.cs" />
-    <Compile Include="InputValidation.cs" />
-    <Compile Include="UserInterface.cs" />
+    <Compile Include="Greeting\AsciiArt.cs" />
+    <Compile Include="Core\ChatBot.cs" />
+    <Compile Include="Interaction\InputValidation.cs" />
+    <Compile Include="UI\UserInterface.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ResponseManager.cs" />
-    <Compile Include="UserSession.cs" />
-    <Compile Include="VoiceGreeting.cs" />
+    <Compile Include="Response\ResponseManager.cs" />
+    <Compile Include="Interaction\UserSession.cs" />
+    <Compile Include="Greeting\VoiceGreeting.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Audio\Welcome Audio WAV.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Welcome Audio WAV.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
