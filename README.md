@@ -26,7 +26,7 @@ The Cybersecurity Awareness Bot is an interactive tool designed to educate users
 - GitHub
 - GitHub action for continious intergration
 
-## Visial of the chatbot interaction
+## Visual of the chatbot interaction
 <img width="735" height="389" alt="Action" src="https://github.com/user-attachments/assets/5b810e9e-6cc5-452b-b478-108ec5eda0fe" />
 
 ## CI workflow Status
