@@ -333,8 +333,7 @@ namespace CybersecurityAwarenessChatBotGUI
             //       personalisedMessage = $"\n\n(Since you're also interested in {userInterest}, let me know if you'd like tips on that too!)";
             //   }
 
-            //   return $"Great question, {userName}! " + empatheticStart + response + personalisedMessage + $"\n\nWould you like me to share another tip about {detectedKeyword}?";
-            // }
+            
 
             // ============ DEFAULT RESPONSE ============
             return $"I'm not sure I understand, {userName}. Can you try rephrasing?\n\nTry asking about:\n• password\n• scam\n• privacy\n• phishing\n• browsing\n\nOr type 'help' to see all options.";
