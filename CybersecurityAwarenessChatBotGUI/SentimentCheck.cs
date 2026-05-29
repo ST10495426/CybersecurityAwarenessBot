@@ -11,7 +11,7 @@ namespace CybersecurityAwarenessChatBotGUI
         // Keywords for different sentiments
         private readonly List<string> worriedKeywords = new List<string>
     {
-        "worried", "scared", "nervous", "anxious", "afraid", "concerned", "unsafe"
+        "worried", "scared", "nervous", "anxious", "afraid", "concerned", "unsafe" ,"sad"
     };
 
         private readonly List<string> curiousKeywords = new List<string>
