@@ -25,16 +25,16 @@ namespace CybersecurityAwarenessChatBotGUI
             keywordResponses = new Dictionary<string, List<string>>(StringComparer.OrdinalIgnoreCase)
         {
             { "password", new List<string> {
-                "🔐 Use strong passwords with at least 12 characters, including numbers, symbols, and both cases.",
-                "🔐 Never reuse passwords across different websites. Each account needs its own unique password.",
-                "🔐 Consider using a password manager to generate and store complex passwords securely.",
-                "🔐 Enable Two-Factor Authentication (2FA) whenever possible for an extra layer of security."
+                "Use strong passwords with at least 12 characters, including numbers, symbols, and both cases.",
+                " Never reuse passwords across different websites. Each account needs its own unique password.",
+                " Consider using a password manager to generate and store complex passwords securely.",
+                " Enable Two-Factor Authentication (2FA) whenever possible for an extra layer of security."
             }},
             { "scam", new List<string> {
-                "⚠️ Never share personal information with unsolicited callers or emails.",
-                "⚠️ Scammers often create urgency - 'Act now or your account will be closed!' Always verify independently.",
-                "⚠️ If something sounds too good to be true, it probably is. Trust your instincts.",
-                "⚠️ Report scams to the relevant authorities like your bank or the FTC."
+                " Never share personal information with unsolicited callers or emails.",
+                " Scammers often create urgency - 'Act now or your account will be closed!' Always verify independently.",
+                " If something sounds too good to be true, it probably is. Trust your instincts.",
+                " Report scams to the relevant authorities like your bank or the FTC."
             }},
             { "privacy", new List<string> {
                 "🛡️ Review your social media privacy settings regularly.",
