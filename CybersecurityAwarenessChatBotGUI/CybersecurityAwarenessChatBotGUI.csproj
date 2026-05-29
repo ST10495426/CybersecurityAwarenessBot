@@ -107,6 +107,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Me.jpeg" />
+    <Content Include="Assets\ASCII ART.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Welcome Audio WAV.wav">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
