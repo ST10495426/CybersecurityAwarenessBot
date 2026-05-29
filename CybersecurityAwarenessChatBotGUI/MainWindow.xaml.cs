@@ -324,19 +324,7 @@ namespace CybersecurityAwarenessChatBotGUI
 
                 return greeting + response + memoryMsg + $"\n\nWould you like another tip about {detectedKeyword}?";
             }
-            //  if (detectedKeyword != null)
-            //  {
-            //     currentTopic = detectedKeyword;
-
-            // Store interest only if not already stored
-            //    if (userInterest == null)
-            //  {
-            //    memory.Remember("interest", detectedKeyword);
-            //      userInterest = detectedKeyword; // Update local variable
-            //   }
-
-            //  string empatheticStart = sentimentCheck.GetEmpatheticResponse(sentiment, detectedKeyword);
-            //  string response = responseManager.GetRandomResponse(detectedKeyword);
+            
 
             // Personalised message based on stored interest
             //   string personalisedMessage = "";
