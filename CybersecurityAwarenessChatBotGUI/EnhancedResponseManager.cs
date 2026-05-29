@@ -37,28 +37,28 @@ namespace CybersecurityAwarenessChatBotGUI
                 " Report scams to the relevant authorities like your bank or the FTC."
             }},
             { "privacy", new List<string> {
-                "🛡️ Review your social media privacy settings regularly.",
-                "🛡️ Be careful what personal information you share online - once it's out, it's hard to remove.",
-                "🛡️ Use a VPN on public Wi-Fi to protect your browsing privacy.",
-                "🛡️ Regularly clear your browser cookies and cache."
+                " Review your social media privacy settings regularly.",
+                " Be careful what personal information you share online - once it's out, it's hard to remove.",
+                "Use a VPN on public Wi-Fi to protect your browsing privacy.",
+                "Regularly clear your browser cookies and cache."
             }},
             { "phishing", new List<string> {
-                "🎣 Check the sender's email address carefully - scammers use addresses that look similar to real ones.",
-                "🎣 Never click links in suspicious emails. Hover over them first to see the actual URL.",
-                "🎣 Look for spelling and grammar errors - these are common in phishing attempts.",
-                "🎣 When in doubt, go directly to the official website instead of using email links."
+                " Check the sender's email address carefully - scammers use addresses that look similar to real ones.",
+                "Never click links in suspicious emails. Hover over them first to see the actual URL.",
+                " Look for spelling and grammar errors - these are common in phishing attempts.",
+                " When in doubt, go directly to the official website instead of using email links."
             }},
             { "browsing", new List<string> {
-                "🌐 Always look for 'https://' and the padlock icon in the address bar.",
-                "🌐 Keep your browser and extensions updated to the latest versions.",
-                "🌐 Use ad-blockers and privacy extensions for safer browsing.",
-                "🌐 Avoid saving passwords in your browser - use a dedicated password manager instead."
+                " Always look for 'https://' and the padlock icon in the address bar.",
+                " Keep your browser and extensions updated to the latest versions.",
+                " Use ad-blockers and privacy extensions for safer browsing.",
+                " Avoid saving passwords in your browser - use a dedicated password manager instead."
             }},
             { "safe browsing", new List<string> {
-                "🌐 Always look for 'https://' and the padlock icon in the address bar.",
-                "🌐 Keep your browser and extensions updated to the latest versions.",
-                "🌐 Clear your cookies and cache regularly.",
-                "🌐 Use a VPN on public Wi-Fi networks."
+                " Always look for 'https://' and the padlock icon in the address bar.",
+                " Keep your browser and extensions updated to the latest versions.",
+                " Clear your cookies and cache regularly.",
+                " Use a VPN on public Wi-Fi networks."
             }}
         };
         }
