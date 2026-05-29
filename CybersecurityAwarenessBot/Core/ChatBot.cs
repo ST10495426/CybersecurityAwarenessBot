@@ -6,10 +6,6 @@ using System.Threading.Tasks;
 
 namespace CybersecurityAwarenessBot
 {
-    using System;
-
-    namespace CybersecurityAwarenessBot
-    {
         public class ChatBot
         {
            
@@ -81,4 +77,4 @@ namespace CybersecurityAwarenessBot
             }
         }
     }
-}
+

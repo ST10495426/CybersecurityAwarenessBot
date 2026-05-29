@@ -1,0 +1,5 @@
+﻿Build started at 14:21...
+1>------ Build started: Project: CybersecurityAwarenessBot, Configuration: Debug Any CPU ------
+1>  CybersecurityAwarenessBot -> C:\Users\DRUZA\source\repos\CybersecurityAwarenessBot\CybersecurityAwarenessBot\bin\Debug\CybersecurityAwarenessBot.exe
+========== Build: 1 succeeded, 0 failed, 0 up-to-date, 0 skipped ==========
+========== Build completed at 14:21 and took 02,005 seconds ==========

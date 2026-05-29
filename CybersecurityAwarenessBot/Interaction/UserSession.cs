@@ -8,7 +8,7 @@ namespace CybersecurityAwarenessBot
 {
     public class UserSession
     {
-        // Automatic property for current user
+        // Automates properties for current user
         public string CurrentUser { get; private set; }
 
         public UserSession()

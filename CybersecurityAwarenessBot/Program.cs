@@ -1,9 +1,10 @@
-﻿using CybersecurityAwarenessBot.CybersecurityAwarenessBot;
+﻿using CybersecurityAwarenessBot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace CybersecurityAwarenessBot
 {
@@ -13,8 +14,8 @@ namespace CybersecurityAwarenessBot
         {
             
 
-            // Set console title
-            Console.Title = "Cybersecurity Awareness Bot";
+             //Set console title
+             Console.Title = "Cybersecurity Awareness Bot";
 
             //display the art 
             AsciiArt art = new AsciiArt();

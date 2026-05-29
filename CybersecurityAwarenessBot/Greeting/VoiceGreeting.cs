@@ -27,7 +27,7 @@ namespace CybersecurityAwarenessBot
                 {
                     using (SoundPlayer player = new SoundPlayer(audioFilePath))
                     {
-                        player.PlaySync(); // Play synchronously to avoid cutting off
+                        player.Play(); // Play synchronously to avoid cutting off
                     }
                 }
                 catch (Exception)
@@ -42,6 +42,8 @@ namespace CybersecurityAwarenessBot
                 Console.WriteLine("[Voice greeting file not found. Continuing with text mode.]");
             }
         }
+
     }
 }
+
 
