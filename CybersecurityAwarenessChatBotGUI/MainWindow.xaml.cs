@@ -50,6 +50,21 @@ namespace CybersecurityAwarenessChatBotGUI
 
             // Bot waits for user to initiate conversation
             waitingForFirstMessage = true;
+
+            // Load ASCII art from text file
+            try
+            {
+                string asciiPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Assets", "ASCII ART.txt");
+                if (System.IO.File.Exists(asciiPath))
+                {
+                    AsciiArtDisplay.Text = System.IO.File.ReadAllText(asciiPath);
+                }
+                else
+                {
+                    AsciiArtDisplay.Text = "|| Cybersecurity Awareness ChatBot ||";
+                }
+            }
+            catch { }
         }
 
         private void AddBotMessage(string message)
@@ -167,7 +182,6 @@ namespace CybersecurityAwarenessChatBotGUI
                 waitingForName = false;
                 memory.Remember("name", userName);
                 AddBotMessage($"Hello, {userName}! Hope you are good.How can I help you with cybersecurity today? ");
-                   // $"You can ask me about password safety, scam protection, privacy tips, or type 'help' to see all topics.");
                 txtUserInput.Clear();
                 return;
             }
@@ -272,7 +286,7 @@ namespace CybersecurityAwarenessChatBotGUI
             // Check if user says they are "interested" in a topic
             if (lowerInput.Contains("interested in"))
             {
-                // Extract the topic (word after "interested in")
+                // Extract word after "interested in" which will be the topic
                 string interestedTopic = "";
                 int index = lowerInput.IndexOf("interested in") + 13;
                 if (index < lowerInput.Length)
@@ -324,20 +338,11 @@ namespace CybersecurityAwarenessChatBotGUI
 
                 return greeting + response + memoryMsg + $"\n\nWould you like another tip about {detectedKeyword}?";
             }
-            
 
-            // Personalised message based on stored interest
-            //   string personalisedMessage = "";
-            //    if (userInterest != null && userInterest != detectedKeyword)
-            //   {
-            //       personalisedMessage = $"\n\n(Since you're also interested in {userInterest}, let me know if you'd like tips on that too!)";
-            //   }
-
-            
-
-            // ============ DEFAULT RESPONSE ============
+            // DEFAULT RESPONSE 
             return $"I'm not sure I understand, {userName}. Can you try rephrasing?\n\nTry asking about:\n• password\n• scam\n• privacy\n• phishing\n• browsing\n\nOr type 'help' to see all options.";
         }
+        //Exit method
         private void ExitApplication()
         {
             MessageBoxResult result = MessageBox.Show("Are you sure you want to exit?", "Exit",

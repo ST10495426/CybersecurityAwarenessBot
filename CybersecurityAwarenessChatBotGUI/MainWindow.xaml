@@ -25,14 +25,19 @@
                         <ColumnDefinition Width="Auto"/>
                     </Grid.ColumnDefinitions>
 
-                    <!-- ASCII Art Title -->
-                    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-                        <TextBlock Text="===========================" FontSize="16" FontWeight="Bold" Foreground="DarkBlue" HorizontalAlignment="Center"/>
-                        <TextBlock Text="|| Cybersecurity ChatBot ||" FontSize="28" FontWeight="Bold" Foreground="DarkBlue" HorizontalAlignment="Center"/>
-                        <TextBlock Text="===========================" FontSize="16" FontWeight="Bold" Foreground="DarkBlue" HorizontalAlignment="Center"/>
-                        <TextBlock Text="Cybersecurity Assistant" FontSize="11" Foreground="Gray" HorizontalAlignment="Center"/>
-                    </StackPanel>
-
+                <!-- ASCII art -->
+                <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                    <TextBlock x:Name="AsciiArtDisplay" 
+                       Grid.Column="0"
+                       FontFamily="Courier New" 
+                       FontSize="6" 
+                       Foreground="DarkBlue"
+                       TextWrapping="NoWrap"
+                       TextAlignment="Center"
+                       VerticalAlignment="Center"/>
+                    <TextBlock Text="Your Cyber Assistant ChatBot" FontSize="12" Foreground="Gray" HorizontalAlignment="Center"/>
+                </StackPanel>
+                
                     <!-- Image at top right -->
                     <Border Grid.Column="1" Width="80" Height="75" CornerRadius="30" Margin="15,0,25,10" ClipToBounds="True">
                         <Image Source="/Me.jpeg" Stretch="UniformToFill" Margin="0,-10,0,0"/>
