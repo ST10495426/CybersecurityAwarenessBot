@@ -1,9 +1,10 @@
 # CybersecurityAwarenessBot
 
 ## Project Overview
-The Cybersecurity Awareness Bot is an interactive tool designed to educate users about digital safety.It is a .NET based bot designed to help user stay safe online by learning about cybersecurity best practices through interactive messages with the bot.
+The Cybersecurity Awareness Bot is an interactive tool designed to educate users about digital safety.It is a .NET based bot designed to help user stay safe online by learning about cybersecurity best practices through interactive messages with the bot.The application includes both a console version (Part 1) and a GUI version (Part 2).
 
 ## Features
+### Part 1 - Console Application
 - Voice greeting using a WAV audio file
 - An ASCII art logo as a introduction banner
 - User name prompt and personalized user name greeting
@@ -11,6 +12,18 @@ The Cybersecurity Awareness Bot is an interactive tool designed to educate users
 - Chatbot responses to user questions
 - Console user interface with different colour and dividers
 - Input validation for empty or incorrect input
+
+### Part 2 - GUI Application (WPF)
+- WhatsApp-style chat interface with message bubbles
+- Timestamps on all messages
+- Image display in header
+- Keyword recognition (password, scam, privacy, phishing, browsing)
+- Random responses using lists/arrays
+- Conversation flow like"tell me more" and"another tip")
+- Memory feature (remembers user interests)
+- Sentiment detection (worried, curious, frustrated, happy)
+- Voice greeting auto-plays on window load
+- Exit with goodbye message
 
 ## Cybersecurity Topics 
 - Phishing attacks
@@ -25,6 +38,8 @@ The Cybersecurity Awareness Bot is an interactive tool designed to educate users
 - visual studio C#
 - GitHub
 - GitHub action for continious intergration
+- WPF (Windows Presentation Foundation)
+- System.Media for voice playback
 
 ## Visual of the chatbot interaction
 <img width="735" height="389" alt="Action" src="https://github.com/user-attachments/assets/5b810e9e-6cc5-452b-b478-108ec5eda0fe" />
