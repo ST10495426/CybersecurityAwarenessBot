@@ -25,6 +25,37 @@ The Cybersecurity Awareness Bot is an interactive tool designed to educate users
 - Voice greeting auto-plays on window load
 - Exit with goodbye message
 
+## Part 3 Features
+
+### Task Assistant
+- Add cybersecurity tasks with optional reminders
+- View all tasks with completion status
+- Mark tasks as complete or delete them
+- All tasks stored in MySQL database
+
+### Cybersecurity Quiz
+- 15+ questions covering password safety, phishing, social engineering
+- Mix of multiple-choice and True/False questions
+- Immediate feedback with explanations
+- Score tracking with motivational feedback
+
+### Natural Language Processing (NLP) Simulation
+- Recognizes task-related phrases like "Add task..." or "Remind me..."
+- Extracts task titles and reminder times
+- Handles variations in user phrasing
+
+### Activity Log
+- Logs all significant actions (tasks, quiz, NLP, chat)
+- Displays last 10 actions with timestamps
+- Accessible via "Show activity log" or Log button
+
+## Database Setup
+1. Install MySQL Server 8.0
+2. Create database: `cybersecurity_bot`
+3. Run the SQL script provided in the repository
+4. Update connection string with your password
+5. Install MySql.Data NuGet package
+
 ## Cybersecurity Topics 
 - Phishing attacks
 - Password safety
@@ -40,6 +71,8 @@ The Cybersecurity Awareness Bot is an interactive tool designed to educate users
 - GitHub action for continious intergration
 - WPF (Windows Presentation Foundation)
 - System.Media for voice playback
+- MySQL (Database)
+- MySql.Data (Connector)
 
 ## Visual of the chatbot interaction
 <img width="735" height="389" alt="Action" src="https://github.com/user-attachments/assets/5b810e9e-6cc5-452b-b478-108ec5eda0fe" />
