@@ -40,12 +40,23 @@
                 
                     <!-- Image at top right -->
                     <Border Grid.Column="1" Width="80" Height="75" CornerRadius="30" Margin="15,0,25,10" ClipToBounds="True">
-                        <Image Source="/Me.jpeg" Stretch="UniformToFill" Margin="0,-10,0,0"/>
+                        <Image Source="/Assets/Me.jpeg" Stretch="UniformToFill" Margin="0,-10,0,0"/>
                     </Border>
                 </Grid>
             </Border>
 
-            <!-- CHAT DISPLAY AREA -->
+         <!-- Part 3 buttons-->
+            <WrapPanel Grid.Row="1" Margin="10,0,10,10" HorizontalAlignment="Center">
+                <Button x:Name="btnTasks" Content="📋 Tasks" Width="80" Height="30" Margin="5" 
+            Background="#075E54" Foreground="White" Click="btnTasks_Click"/>
+                <Button x:Name="btnQuiz" Content="🎯 Quiz" Width="80" Height="30" Margin="5" 
+            Background="#075E54" Foreground="White" Click="btnQuiz_Click"/>
+                <Button x:Name="btnLog" Content="📜 Log" Width="80" Height="30" Margin="5" 
+            Background="#075E54" Foreground="White" Click="btnLog_Click"/>
+            </WrapPanel>
+
+
+        <!-- CHAT DISPLAY AREA -->
             <ScrollViewer x:Name="chatScrollViewer" Grid.Row="1" VerticalScrollBarVisibility="Auto" Background="#ECE5DD">
                 <StackPanel x:Name="ChatPanel" Margin="10"/>
             </ScrollViewer>

@@ -50,12 +50,12 @@ namespace CybersecurityAwarenessChatBotGUI
         public void AddToHistory(string message)
         {
             conversationHistory.Add(message);
-            // Keep only last 10 messages to prevent memory issues
+            // Keep only last 10 messages from conversation
             if (conversationHistory.Count > 10)
                 conversationHistory.RemoveAt(0);
         }
 
-        // Get the last bot response (for "tell me more" feature)
+        // Get the last bot response for the use of the "tell me more" feature
         public string GetLastBotResponse()
         {
             for (int i = conversationHistory.Count - 1; i >= 0; i--)
@@ -99,6 +99,40 @@ namespace CybersecurityAwarenessChatBotGUI
                 }
             }
             return false;
+        }
+        private string lastTopic = null;
+
+        public void SetLastTopic(string topic)
+        {
+            lastTopic = topic;
+        }
+
+        public string GetLastTopic()
+        {
+            return lastTopic;
+        }
+
+        // Task History array
+
+        private List<string> taskHistory = new List<string>();
+
+        public void AddTaskToHistory(string task)
+        {
+            taskHistory.Add(task);
+            if (taskHistory.Count > 10)
+                taskHistory.RemoveAt(0);
+        }
+
+        public string GetLastTask()
+        {
+            if (taskHistory.Count == 0)
+                return null;
+            return taskHistory[taskHistory.Count - 1];
+        }
+
+        public int GetTaskCount()
+        {
+            return taskHistory.Count;
         }
     }
 }
