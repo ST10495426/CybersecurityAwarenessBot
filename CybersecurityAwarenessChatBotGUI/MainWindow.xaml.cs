@@ -10,6 +10,12 @@ namespace CybersecurityAwarenessChatBotGUI
 {
     public partial class MainWindow : Window
     {
+        //part 3 classes
+        private TaskManager taskManager;
+        private QuizManager quizManager;
+        private bool waitingForTaskAction = false;
+        private string pendingTaskTitle = "";
+
         // Part 2 classes
         private EnhancedResponseManager responseManager;
         private SentimentCheck sentimentCheck;
@@ -65,6 +71,35 @@ namespace CybersecurityAwarenessChatBotGUI
                 }
             }
             catch { }
+
+            InitializePart3();
+        }
+            private void InitializePart3()
+        {
+            taskManager = new TaskManager();
+            quizManager = new QuizManager();
+            ActivityLogger.Log("System", "Chatbot started");
+        }
+        
+        private void btnTasks_Click(object sender, RoutedEventArgs e)
+        {
+            string summary = taskManager.GetTasksSummary();
+            AddBotMessage(" " + summary);
+            ActivityLogger.Log("User Action", "Viewed tasks");
+        }
+
+        private void btnQuiz_Click(object sender, RoutedEventArgs e)
+        {
+            string startMsg = quizManager.StartQuiz();
+            AddBotMessage(startMsg);
+            ActivityLogger.Log("User Action", "Started quiz");
+        }
+
+        private void btnLog_Click(object sender, RoutedEventArgs e)
+        {
+            string log = ActivityLogger.GetLog();
+            AddBotMessage(log);
+            ActivityLogger.Log("User Action", "Viewed activity log");
         }
 
         private void AddBotMessage(string message)
@@ -182,9 +217,20 @@ namespace CybersecurityAwarenessChatBotGUI
                 waitingForName = false;
                 memory.Remember("name", userName);
                 AddBotMessage($"Hello, {userName}! Hope you are good.How can I help you with cybersecurity today? ");
+                
                 txtUserInput.Clear();
                 return;
             }
+            // Check if quiz is active
+            if (quizManager.IsActive())
+            {
+                string quizResponse = quizManager.SubmitAnswer(input);
+                AddBotMessage(quizResponse);
+                ActivityLogger.Log("Quiz", $"Answered question {quizManager.GetCurrentIndex()}/{quizManager.GetQuestionCount()}");
+                txtUserInput.Clear();
+                return;
+            }
+
             // Check for exit
             if (input.Equals("exit", StringComparison.OrdinalIgnoreCase))
             {
@@ -192,8 +238,88 @@ namespace CybersecurityAwarenessChatBotGUI
                 return;
             }
 
-            // Normal conversation
-            string response = GenerateResponse(input);
+            // ============ NLP TASK DETECTOR ============
+            string taskIntent = responseManager.DetectTaskIntent(input);
+
+            if (taskIntent != null)
+            {
+                switch (taskIntent)
+                {
+                    case "add_task":
+                        string taskTitle = responseManager.ExtractTaskTitle(input);
+                        pendingTaskTitle = taskTitle;
+                        waitingForTaskAction = true;
+                        AddBotMessage($"Task detected: '{taskTitle}'. Would you like to add a reminder? (yes/no)");
+                        ActivityLogger.Log("NLP", $"Task detected: {taskTitle}");
+                        txtUserInput.Clear();
+                        return;
+                    case "view_tasks":
+                        string summary = taskManager.GetTasksSummary();
+                        AddBotMessage(" " + summary);
+                        ActivityLogger.Log("User Action", "Viewed tasks via NLP");
+                        txtUserInput.Clear();
+                        return;
+                    case "set_reminder":
+                        string reminderTask = responseManager.ExtractTaskTitle(input);
+                        string reminderTime = responseManager.ExtractReminderTime(input);
+                        DateTime reminderDate = DateTime.Now.AddDays(1);
+                        if (reminderTime != null)
+                        {
+                            int days = int.Parse(reminderTime.Split(' ')[0]);
+                            reminderDate = DateTime.Now.AddDays(days);
+                        }
+                        taskManager.AddTask(reminderTask, "", reminderDate);
+                        AddBotMessage($"Reminder set for '{reminderTask}' on {reminderDate:yyyy-MM-dd HH:mm}");
+                        ActivityLogger.Log("Task", $"Reminder set: {reminderTask} - {reminderDate}");
+                        txtUserInput.Clear();
+                        return;
+                }
+            }
+
+            // Handle "yes" response to task reminder prompt
+            if (waitingForTaskAction && input.ToLower() == "yes")
+            {
+                waitingForTaskAction = false;
+                AddBotMessage("Please specify the reminder time (e.g., 'in 3 days' or 'tomorrow'):");
+                txtUserInput.Clear();
+                return;
+            }
+            if (waitingForTaskAction && input.ToLower() == "no")
+            {
+                waitingForTaskAction = false;
+                taskManager.AddTask(pendingTaskTitle, "", null);
+                AddBotMessage($"Task '{pendingTaskTitle}' added with no reminder.");
+                ActivityLogger.Log("Task", $"Added: {pendingTaskTitle} (no reminder)");
+                txtUserInput.Clear();
+                return;
+            }
+            if (waitingForTaskAction)
+            {
+                // User specified a reminder time
+                string reminderTime = input.ToLower();
+                DateTime reminderDate = DateTime.Now.AddDays(1);
+                if (reminderTime.Contains("tomorrow"))
+                    reminderDate = DateTime.Now.AddDays(1);
+                else if (reminderTime.Contains("3 days"))
+                    reminderDate = DateTime.Now.AddDays(3);
+                else if (reminderTime.Contains("5 days"))
+                    reminderDate = DateTime.Now.AddDays(5);
+                else if (reminderTime.Contains("7 days") || reminderTime.Contains("week"))
+                    reminderDate = DateTime.Now.AddDays(7);
+                else if (reminderTime.Contains("2 days"))
+                    reminderDate = DateTime.Now.AddDays(2);
+
+                taskManager.AddTask(pendingTaskTitle, "", reminderDate);
+                AddBotMessage($"Task '{pendingTaskTitle}' added with reminder for {reminderDate:yyyy-MM-dd}");
+                ActivityLogger.Log("Task", $"Added: {pendingTaskTitle} with reminder on {reminderDate}");
+                waitingForTaskAction = false;
+                txtUserInput.Clear();
+                return;
+            }
+
+
+        // Normal conversation
+        string response = GenerateResponse(input);
             AddBotMessage(response);
 
             // Store in memory
@@ -228,16 +354,6 @@ namespace CybersecurityAwarenessChatBotGUI
                 return "You can ask me about:\n• Password safety\n• Phishing attacks\n• Safe browsing habits\n• Scam protection\n• Privacy tips";
             }
 
-            // Greetings
-            if (lowerInput.Contains("hello") || lowerInput.Contains("hi") || lowerInput.Contains("hey"))
-            {
-                if (userInterest != null)
-                {
-                    return $"Hello again, {userName}! Since you're interested in {userInterest}, would you like more tips on that topic?";
-                }
-                return $"Hello, {userName}! How can I help you with cybersecurity today?";
-            }
-
             // Help
             if (lowerInput.Contains("help"))
             {
@@ -247,53 +363,13 @@ namespace CybersecurityAwarenessChatBotGUI
 
             // ============ PART 2 FEATURES ============
 
-            // Sentiment detection
-            string sentiment = sentimentCheck.DetectSentiment(input);
-
-            // Handle sentiment responses
-            if (!string.IsNullOrEmpty(currentTopic))
-            {
-                if (sentiment == "worried")
-                {
-                    string tip = responseManager.GetRandomResponse(currentTopic);
-                    return $"I understand your concern about {currentTopic}. " + tip + $"\n\nWould you like another tip?";
-                }
-                else if (sentiment == "curious")
-                {
-                    string tip = responseManager.GetRandomResponse(currentTopic);
-                    return $"That's great that you're curious about {currentTopic}! " + tip + $"\n\nWould you like to learn more?";
-                }
-                else if (sentiment == "frustrated")
-                {
-                    string tip = responseManager.GetRandomResponse(currentTopic);
-                    return $"I know cybersecurity can be frustrating. Let me simplify this for you. " + tip + $"\n\nDoes that make more sense?";
-                }
-                else if (sentiment == "happy")
-                {
-                    string tip = responseManager.GetRandomResponse(currentTopic);
-                    return $"I'm glad you're feeling positive about cybersecurity! " + tip;
-                }
-            }
-
-            // Check if user wants more info
-            if (memory.WantsMoreInfo(input) && !string.IsNullOrEmpty(currentTopic))
-            {
-                string empatheticStart = sentimentCheck.GetEmpatheticResponse(sentiment, currentTopic);
-                string moreInfo = responseManager.GetRandomResponse(currentTopic);
-                return empatheticStart + moreInfo + $"\n\nWould you like another tip about {currentTopic}, {userName}?";
-            }
-
             // Check if user says they are "interested" in a topic
             if (lowerInput.Contains("interested in"))
             {
-                // Extract word after "interested in" which will be the topic
-                string interestedTopic = "";
                 int index = lowerInput.IndexOf("interested in") + 13;
                 if (index < lowerInput.Length)
                 {
-                    interestedTopic = lowerInput.Substring(index).Trim();
-
-                    // Find matching keyword
+                    string interestedTopic = lowerInput.Substring(index).Trim();
                     string matchedKeyword = responseManager.DetectKeyword(interestedTopic);
                     if (matchedKeyword != null)
                     {
@@ -304,21 +380,77 @@ namespace CybersecurityAwarenessChatBotGUI
                 }
             }
 
-            // Check if topic changed
-            if (memory.ChangedTopic(input, currentTopic))
+            // Check if user wants more info
+            if (memory.WantsMoreInfo(input))
             {
-                currentTopic = null;
+                // ALWAYS use currentTopic (the latest topic discussed)
+                if (!string.IsNullOrEmpty(currentTopic))
+                {
+                    string moreInfo = responseManager.GetRandomResponse(currentTopic);
+                    return moreInfo + $"\n\nWould you like another tip about {currentTopic}, {userName}?";
+                }
+                else
+                {
+                    return $"What topic would you like another tip about, {userName}? ";
+                }
             }
 
+            // ============ KEYWORD DETECTION  ===========
 
-            // Keyword detection
             string detectedKeyword = responseManager.DetectKeyword(input);
+
+            // Force detect if input is a single word that matches
+            if (detectedKeyword == null && !string.IsNullOrWhiteSpace(input))
+            {
+                string trimmed = input.Trim().ToLower();
+                foreach (string keyword in responseManager.GetAvailableKeywords())
+                {
+                    if (trimmed.Contains(keyword) || keyword.Contains(trimmed))
+                    {
+                        detectedKeyword = keyword;
+                        break;
+                    }
+                }
+            }
+
             if (detectedKeyword != null)
             {
                 bool isFirstTimeOnTopic = (currentTopic != detectedKeyword);
                 currentTopic = detectedKeyword;
+                memory.SetLastTopic(detectedKeyword);
 
-                // Only add greeting occasionally and ONLY on first time
+                // Store interest if not already stored
+                if (memory.GetUserInterest() == null)
+                {
+                    memory.Remember("interest", detectedKeyword);
+                }
+
+                // Get sentiment AFTER detecting the keyword
+                string sentiment = sentimentCheck.DetectSentiment(input);
+
+                // Handle sentiment for THIS topic
+                if (sentiment == "worried")
+                {
+                    string tip = responseManager.GetRandomResponse(detectedKeyword);
+                    return $"I understand your concern about {detectedKeyword}. " + tip + $"\n\nWould you like another tip?";
+                }
+                else if (sentiment == "curious")
+                {
+                    string tip = responseManager.GetRandomResponse(detectedKeyword);
+                    return $"That's great that you're curious about {detectedKeyword}! " + tip + $"\n\nWould you like to learn more?";
+                }
+                else if (sentiment == "frustrated")
+                {
+                    string tip = responseManager.GetRandomResponse(detectedKeyword);
+                    return $"I know cybersecurity can be frustrating. Let me simplify this for you. " + tip + $"\n\nDoes that make more sense?";
+                }
+                else if (sentiment == "happy")
+                {
+                    string tip = responseManager.GetRandomResponse(detectedKeyword);
+                    return $"I'm glad you're feeling positive about cybersecurity! " + tip;
+                }
+
+                // Normal response (no special sentiment)
                 string greeting = "";
                 if (isFirstTimeOnTopic && new Random().Next(3) == 0)
                 {
@@ -328,15 +460,23 @@ namespace CybersecurityAwarenessChatBotGUI
 
                 string response = responseManager.GetRandomResponse(detectedKeyword);
 
-                // Memory reminder 
-                
                 string memoryMsg = "";
-                if (userInterest != null && userInterest != detectedKeyword && new Random().Next(2) == 0)
+                string storedInterest = memory.GetUserInterest();
+                if (storedInterest != null && storedInterest != detectedKeyword && new Random().Next(2) == 0)
                 {
-                    memoryMsg = $"\n\n(Since you're interested in {userInterest}, let me know if you'd like tips on that too!)";
+                    memoryMsg = $"\n\n(Since you're interested in {storedInterest}, let me know if you'd like tips on that too!)";
                 }
 
                 return greeting + response + memoryMsg + $"\n\nWould you like another tip about {detectedKeyword}?";
+            }
+            // Greetings
+            if (lowerInput.Contains("hello") || lowerInput.Contains("hi") || lowerInput.Contains("hey"))
+            {
+                if (userInterest != null)
+                {
+                    return $"Hello again, {userName}! Since you're interested in {userInterest}, would you like more tips on that topic?";
+                }
+                return $"Hello, {userName}! How can I help you with cybersecurity today?";
             }
 
             // DEFAULT RESPONSE 
@@ -359,6 +499,6 @@ namespace CybersecurityAwarenessChatBotGUI
                 timer.Start();
             }
         }
-      
+
     }
 }
